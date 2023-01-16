@@ -3,15 +3,17 @@ import java.util.Scanner;
 
 public class Game {
 
+  private static final int MIN = 0;
   private static final int MAX = 36;
-  private static final int MIN = 10;
 
   public void start() {
 
     showAboutGame();
-    int sector = inputSector();
-    int numWin = spinRoulette(MIN, MAX);
-    checkWin(sector, numWin);
+    int selectedSector = inputSector();
+    int winSector = spinRoulette(MIN, MAX);
+    boolean resultGame = checkWin(winSector, selectedSector);
+    showResult(winSector, resultGame);
+
 
   }
 
@@ -23,6 +25,7 @@ public class Game {
       String input = sc.nextLine();
 
       if (!isNumber(input)) {
+        System.out.println("Ошибка ввода");
         continue;
       }
 
@@ -31,6 +34,7 @@ public class Game {
       if (isCorrectNum(sector)) {
         return sector;
       }
+      System.out.println("Ошибка ввода");
     }
   }
 
@@ -59,15 +63,17 @@ public class Game {
     System.out.println("***************************");
   }
 
-  private boolean checkWin(Integer move, int numWin) {
-    if (move.equals(numWin)) {
-      System.out.println("Вы победили.");
-    } else {
-      System.out.println("Вы проиграли.");
-    }
+  private boolean checkWin(int winSector, int selectedSector) {
+    return winSector == selectedSector;
+  }
 
-    System.out.println("Выигрышный номер:".toUpperCase() + numWin);
-    return false;
+  private void showResult(int winSector, boolean resultGame) {
+    System.out.printf("ВЫИГРЫШНЫЙ СЕКТОР: %d\n", winSector);
+    if (resultGame) {
+      System.out.println("Вы выиграли!");
+    } else {
+      System.out.println("Вы проиграли!");
+    }
   }
 
 }
