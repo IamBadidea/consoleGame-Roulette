@@ -1,10 +1,17 @@
-import java.util.Scanner;
+package controller;
+
 import model.Roulette;
 import model.Win;
+import view.View;
 
 public class Game {
 
+  private final View view;
   private final Roulette roulette = new Roulette();
+
+  public Game(View view) {
+    this.view = view;
+  }
 
   public void start() {
 
@@ -17,14 +24,13 @@ public class Game {
   }
 
   private int inputSector() {
-    Scanner sc = new Scanner(System.in);
 
     while(true) {
-      System.out.println("Введите ваш ход:");
-      String input = sc.nextLine();
+      view.output("Введите ваш ход:");
+      String input = view.input();
 
       if (!isNumber(input)) {
-        System.out.println("Ошибка ввода");
+        view.output("Ошибка ввода");
         continue;
       }
 
@@ -33,7 +39,7 @@ public class Game {
       if (roulette.isCorrectSector(sector)) {
         return sector;
       }
-      System.out.println("Ошибка ввода");
+      view.output("Ошибка ввода");
     }
   }
 
@@ -51,20 +57,22 @@ public class Game {
 
 
   private void showAboutGame() {
-    System.out.println("***************************");
-    System.out.println("ИГРА РУЛЕТКА");
-    System.out.printf("Секторы: %d-%d\n", Roulette.MIN_SECTOR, Roulette.MAX_SECTOR);
-    System.out.println("***************************");
+    view.output("***************************");
+    view.output("ИГРА РУЛЕТКА");
+    String string = String.format("Секторы: %d-%d", Roulette.MIN_SECTOR, Roulette.MAX_SECTOR);
+    view.output(string);
+    view.output("***************************");
   }
 
 
 
   private void showResult(int winSector, boolean resultGame) {
-    System.out.printf("ВЫИГРЫШНЫЙ СЕКТОР: %d\n", winSector);
+    String string = String.format("ВЫИГРЫШНЫЙ СЕКТОР: %d", winSector);
+    view.output(string);
     if (resultGame) {
-      System.out.println("Вы выиграли!");
+      view.output("Вы выиграли!");
     } else {
-      System.out.println("Вы проиграли!");
+      view.output("Вы проиграли!");
     }
   }
 
