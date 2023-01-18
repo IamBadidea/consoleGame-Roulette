@@ -16,25 +16,18 @@ public class Game {
   public void start() {
 
     showAboutGame();
-    int selectedSector = inputSector();
-    int winSector = roulette.spin();
+    String selectedSector = inputSector();
+    String winSector = roulette.spin();
     boolean resultGame = Win.check(winSector, selectedSector);
     showResult(winSector, resultGame);
 
   }
 
-  private int inputSector() {
+  private String inputSector() {
 
     while(true) {
       view.output("Введите ваш ход:");
-      String input = view.input();
-
-      if (!isNumber(input)) {
-        view.output("Ошибка ввода");
-        continue;
-      }
-
-      int sector = Integer.parseInt(input);
+      String sector = view.input();
 
       if (roulette.isCorrectSector(sector)) {
         return sector;
@@ -44,30 +37,18 @@ public class Game {
   }
 
 
-
-  private boolean isNumber(String string) {
-    try {
-      Integer.parseInt(string);
-      return true;
-    } catch (NumberFormatException e) {
-      return false;
-    }
-  }
-
-
-
   private void showAboutGame() {
     view.output("***************************");
-    view.output("ИГРА РУЛЕТКА");
-    String string = String.format("Секторы: %d-%d", Roulette.MIN_SECTOR, Roulette.MAX_SECTOR);
+    view.output("АМЕРИКАНСКАЯ РУЛЕТКА");
+    String string = String.format("Секторы: %s-%s", roulette.minSector(), roulette.maxSector());
     view.output(string);
     view.output("***************************");
   }
 
 
 
-  private void showResult(int winSector, boolean resultGame) {
-    String string = String.format("ВЫИГРЫШНЫЙ СЕКТОР: %d", winSector);
+  private void showResult(String winSector, boolean resultGame) {
+    String string = String.format("ВЫИГРЫШНЫЙ СЕКТОР: %s", winSector);
     view.output(string);
     if (resultGame) {
       view.output("Вы выиграли!");
