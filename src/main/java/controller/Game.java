@@ -7,19 +7,21 @@ import view.View;
 public class Game {
 
   private final View view;
-  private final Roulette roulette = new Roulette();
-
   public Game(View view) {
     this.view = view;
   }
 
+  private Roulette roulette;
+
   public void start() {
 
-    String selectedGame = chooseTypeGame();
-    showAboutGame(selectedGame);
+    String typeRoulette = inputTypeRoulette();
+    roulette = new Roulette(typeRoulette);
 
-    String selectedSector = inputSector(selectedGame);
-    String winSector = roulette.spin(selectedGame, gameSectors(selectedGame));
+    showAboutGame();
+
+    String selectedSector = inputSector(typeRoulette);
+    String winSector = roulette.spin(typeRoulette, gameSectors(typeRoulette));
     boolean resultGame = Win.check(winSector, selectedSector);
     showResult(winSector, resultGame);
 
@@ -38,12 +40,12 @@ public class Game {
     }
   }
 
-  private String chooseTypeGame() {
+  private String inputTypeRoulette() {
     while (true) {
       view.output("Выберите тип рулетки (am - Американская, eu - Европейская):");
       String type = view.input();
 
-      if(roulette.isCorrectTypeGame(type)) {
+      if(Roulette.isCorrectTypeGame(type)) {
         return type;
       } else {
         view.output("Некорректный ввод!\n");
@@ -52,14 +54,10 @@ public class Game {
   }
 
 
-  private void showAboutGame(String typeGame) {
+  private void showAboutGame() {
     view.output("***************************");
-    if (typeGame.equals(Roulette.EU_TYPE)) {
-      view.output("ЕВРОПЕЙСКАЯ РУЛЕТКА");
-    } else {
-      view.output("АМЕРИКАНСКАЯ РУЛЕТКА");
-    }
-    String string = String.format("Секторы: %s-%s", roulette.minSector(typeGame), roulette.maxSector(typeGame));
+    view.output(roulette.name());
+    String string = String.format("Секторы: %s-%s", roulette.minSector(), roulette.maxSector());
     view.output(string);
     view.output("***************************");
   }

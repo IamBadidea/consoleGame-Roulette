@@ -19,16 +19,32 @@ public class Roulette {
   public static final String EU_TYPE = "eu";
   public static final String AM_TYPE = "am";
 
+  private final String type;
 
-  public String minSector(String typeGame) {
-    if (typeGame.equals(AM_TYPE)) {
+  public Roulette(String type) {
+    if (!isCorrectTypeGame(type)) {
+      throw new IllegalArgumentException("Illegal type roulette: " + type);
+    }
+    this.type = type;
+  }
+
+  public String name() {
+    if (type.equals(EU_TYPE)) {
+      return "EUROPEAN ROULETTE";
+    }
+    return "AMERICAN ROULETTE";
+  }
+
+
+  public String minSector() {
+    if (type.equals(AM_TYPE)) {
       return AM_SECTORS[0];
     }
     return EU_SECTORS[0];
   }
 
-  public String maxSector(String typeGame) {
-    if (typeGame.equals(AM_TYPE)) {
+  public String maxSector() {
+    if (type.equals(AM_TYPE)) {
       return AM_SECTORS[AM_SECTORS.length - 1];
     }
     return EU_SECTORS[EU_SECTORS.length - 1];
@@ -50,8 +66,8 @@ public class Roulette {
     return false;
   }
 
-  public boolean isCorrectTypeGame(String enter) {
-    if (enter.equals(EU_TYPE) || enter.equals(AM_TYPE)) {
+  public static boolean isCorrectTypeGame(String enter) {
+    if (enter.equalsIgnoreCase(EU_TYPE) || enter.equalsIgnoreCase(AM_TYPE)) {
       return true;
     }
     return false;
