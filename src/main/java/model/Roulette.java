@@ -1,15 +1,10 @@
 package model;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class Roulette {
-  public static final String[] EU_SECTORS = {
-          "0", "1", "2", "3", "4", "5", "6",
-          "7", "8", "9", "10", "11", "12", "13", "14",
-          "15", "16", "17", "18", "19", "20", "21", "22", "23",
-          "24", "25", "26", "27", "28", "29", "30", "31", "32",
-          "33", "34", "35", "36"};
-  public static final String[] AM_SECTORS = {
+  public static final String[] SECTORS = {
           "00", "0", "1", "2", "3", "4", "5", "6",
           "7", "8", "9", "10", "11", "12", "13", "14",
           "15", "16", "17", "18", "19", "20", "21", "22", "23",
@@ -25,7 +20,7 @@ public class Roulette {
     if (!isCorrectTypeGame(type)) {
       throw new IllegalArgumentException("Illegal type roulette: " + type);
     }
-    this.type = type;
+    this.type = type.toLowerCase();
   }
 
   public String name() {
@@ -37,33 +32,34 @@ public class Roulette {
 
 
   public String minSector() {
-    if (type.equals(AM_TYPE)) {
-      return AM_SECTORS[0];
-    }
-    return EU_SECTORS[0];
+    return isEuropean() ? getSectors()[1] : getSectors()[0];
   }
 
   public String maxSector() {
-    if (type.equals(AM_TYPE)) {
-      return AM_SECTORS[AM_SECTORS.length - 1];
-    }
-    return EU_SECTORS[EU_SECTORS.length - 1];
+    return getSectors()[getSectors().length - 1];
   }
 
 
-  public String spin(String typeGame, String[] sectors) {
+  public String spin() {
+    String[] sectors = getSectors();
     Random random = new Random();
-    int index = random.nextInt(sectors.length);
+    int offset = isEuropean() ? 1 : 0;
+    int index = random.nextInt(sectors.length - offset) + offset;
     return sectors[index];
   }
 
-  public boolean isCorrectSector(String sector, String[] sectors) {
+  public boolean isCorrectSector(String sector) {
+    String[] sectors = isEuropean() ? Arrays.copyOfRange(getSectors(), 1, getSectors().length) : getSectors();
     for (String s : sectors) {
       if (s.equals(sector)) {
         return true;
       }
     }
     return false;
+  }
+
+  private String[] getSectors() {
+    return SECTORS;
   }
 
   public static boolean isCorrectTypeGame(String enter) {
@@ -73,11 +69,11 @@ public class Roulette {
     return false;
   }
 
-  private String[] gameSectors(String typeGame) {
-    if (typeGame.equals(AM_TYPE)) {
-      return AM_SECTORS;
-    }
-    return EU_SECTORS;
+  public boolean isAmerican() {
+    return type.equals(AM_TYPE);
+  }
+  public boolean isEuropean() {
+    return type.equals(EU_TYPE);
   }
 
 

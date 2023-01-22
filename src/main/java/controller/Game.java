@@ -20,20 +20,21 @@ public class Game {
 
     showAboutGame();
 
-    String selectedSector = inputSector(typeRoulette);
-    String winSector = roulette.spin(typeRoulette, gameSectors(typeRoulette));
+    String selectedSector = inputSector();
+    String winSector = roulette.spin();
     boolean resultGame = Win.check(winSector, selectedSector);
+
     showResult(winSector, resultGame);
 
   }
 
-  private String inputSector(String typeGame) {
+  private String inputSector() {
 
     while (true) {
       view.output("Введите ваш ход:");
       String sector = view.input();
 
-      if (roulette.isCorrectSector(sector, gameSectors(typeGame))) {
+      if (roulette.isCorrectSector(sector)) {
         return sector;
       }
       view.output("Ошибка ввода");
@@ -71,13 +72,6 @@ public class Game {
     } else {
       view.output("Вы проиграли!");
     }
-  }
-
-  private String[] gameSectors(String typeGame) {
-    if (typeGame.equals(Roulette.AM_TYPE)) {
-      return Roulette.AM_SECTORS;
-    }
-    return Roulette.EU_SECTORS;
   }
 
 }
