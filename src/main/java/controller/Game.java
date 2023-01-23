@@ -1,10 +1,7 @@
 package controller;
 
-import model.roulette.AmericanRoulette;
-import model.roulette.EuropeanRoulette;
 import model.roulette.Roulette;
 import model.Win;
-import model.roulette.VegasRoulette;
 import view.View;
 
 public class Game {
@@ -21,9 +18,9 @@ public class Game {
 
     showAboutGame();
 
-    String selectedSector = inputSector();
+    String selectedColorSector = inputColorSector();
     String winSector = roulette.spin();
-    boolean resultGame = Win.check(winSector, selectedSector);
+    boolean resultGame = Win.check(winSector, selectedColorSector);
 
     showResult(winSector, resultGame);
 
@@ -31,7 +28,7 @@ public class Game {
 
 
 
-  private String inputSector() {
+  private String inputColorSector() {
 
     while (true) {
       view.output("Введите ваш ход:");
