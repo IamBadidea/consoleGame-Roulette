@@ -9,20 +9,15 @@ import view.View;
 
 public class Game {
 
-
-
   private final View view;
+  private final Roulette roulette;
 
-  public Game(View view) {
+  public Game(View view, Roulette roulette) {
     this.view = view;
+    this.roulette = roulette;
   }
 
-  private Roulette roulette;
-
   public void start() {
-
-    String typeRoulette = inputTypeRoulette();
-    roulette = RouletteFactory.create(typeRoulette);
 
     showAboutGame();
 
@@ -48,23 +43,6 @@ public class Game {
       view.output("Ошибка ввода");
     }
   }
-
-  private String inputTypeRoulette() {
-    while (true) {
-      view.output("Выберите тип рулетки:");
-      view.output(RouletteFactory.AM_TYPE + " - Американская");
-      view.output(RouletteFactory.EU_TYPE + " - Европейская");
-      view.output(RouletteFactory.VEGAS_TYPE + " - Лас-Вегас");
-      String type = view.input();
-
-      if (RouletteFactory.isCorrect(type)) {
-        return type;
-      } else {
-        view.output("Некорректный ввод!\n");
-      }
-    }
-  }
-
 
   private void showAboutGame() {
     view.output("***************************");
