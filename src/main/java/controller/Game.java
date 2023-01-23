@@ -32,7 +32,7 @@ public class Game {
 
     while (true) {
       view.output("Введите ваш ход:");
-      String sector = view.input();
+      String sector = view.input().toUpperCase();
 
       if (roulette.isCorrectSector(sector)) {
         return sector;
@@ -58,15 +58,17 @@ public class Game {
   private void showAboutGame() {
     view.output("***************************");
     view.output(roulette.name());
-    String string = String.format("Секторы: %s-%s", roulette.minSector(), roulette.maxSector());
+    String string = String.format("Ставки на цвет:\n%s \n%s",
+                                    Roulette.KEY_COLOR_BLACK, Roulette.KEY_COLOR_RED);
     view.output(string);
     view.output("***************************");
   }
 
 
   private void showResult(String winSector, boolean resultGame) {
-    String string = String.format("ВЫИГРЫШНЫЙ СЕКТОР: %s", winSector);
+    String string = String.format("ВЫИГРЫШНЫЙ СЕКТОР: %s (%s)", winSector, Roulette.getColorSector(winSector));
     view.output(string);
+
     if (resultGame) {
       view.output("Вы выиграли!");
     } else {
