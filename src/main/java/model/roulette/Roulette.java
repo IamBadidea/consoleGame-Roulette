@@ -14,23 +14,11 @@ public abstract class Roulette {
       "1", "3" ,"5", "7", "9", "12", "14", "16", "18",
       "19", "21", "23", "25", "27", "30", "32", "34", "36"};
 
-  public static final String EU_TYPE = "eu";
-  public static final String AM_TYPE = "am";
   public static final String KEY_COLOR_RED = "RED";
   public static final String KEY_COLOR_BLACK = "BLACK";
   public static final String KEY_COLOR_NULL = "NULL";
 
-  private final String type;
-
-  public Roulette(String type) {
-    if (!isCorrectTypeGame(type)) {
-      throw new IllegalArgumentException("Illegal type roulette: " + type);
-    }
-    this.type = type.toLowerCase();
-  }
-
   public abstract String name();
-
 
   public String minSector() {
     return getSectors()[0];
@@ -76,20 +64,5 @@ public abstract class Roulette {
   }
 
   protected abstract String[] getSectors();
-
-  public static boolean isCorrectTypeGame(String enter) {
-    if (enter.equalsIgnoreCase(EU_TYPE) || enter.equalsIgnoreCase(AM_TYPE)) {
-      return true;
-    }
-    return false;
-  }
-
-  public boolean isAmerican() {
-    return type.equals(AM_TYPE);
-  }
-  public boolean isEuropean() {
-    return type.equals(EU_TYPE);
-  }
-
 
 }

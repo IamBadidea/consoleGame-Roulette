@@ -4,11 +4,15 @@ import model.roulette.AmericanRoulette;
 import model.roulette.EuropeanRoulette;
 import model.roulette.Roulette;
 import model.Win;
+import model.roulette.VegasRoulette;
 import view.View;
 
 public class Game {
 
+
+
   private final View view;
+
   public Game(View view) {
     this.view = view;
   }
@@ -18,7 +22,7 @@ public class Game {
   public void start() {
 
     String typeRoulette = inputTypeRoulette();
-    roulette = createRoulette(typeRoulette);
+    roulette = RouletteFactory.create(typeRoulette);
 
     showAboutGame();
 
@@ -30,15 +34,7 @@ public class Game {
 
   }
 
-  private Roulette createRoulette(String typeRoulette) {
-    if (typeRoulette.equalsIgnoreCase(Roulette.EU_TYPE)) {
-      return new EuropeanRoulette();
-    }
-    if (typeRoulette.equalsIgnoreCase(Roulette.AM_TYPE)) {
-      return new AmericanRoulette();
-    }
-    throw new IllegalArgumentException("Illegal type roulette: " + typeRoulette);
-  }
+
 
   private String inputSector() {
 
@@ -55,10 +51,13 @@ public class Game {
 
   private String inputTypeRoulette() {
     while (true) {
-      view.output("Выберите тип рулетки (am - Американская, eu - Европейская):");
+      view.output("Выберите тип рулетки:");
+      view.output(RouletteFactory.AM_TYPE + " - Американская");
+      view.output(RouletteFactory.EU_TYPE + " - Европейская");
+      view.output(RouletteFactory.VEGAS_TYPE + " - Лас-Вегас");
       String type = view.input();
 
-      if(Roulette.isCorrectTypeGame(type)) {
+      if (RouletteFactory.isCorrect(type)) {
         return type;
       } else {
         view.output("Некорректный ввод!\n");
@@ -71,14 +70,15 @@ public class Game {
     view.output("***************************");
     view.output(roulette.name());
     String string = String.format("Ставки на цвет:\n%s \n%s",
-                                    Roulette.KEY_COLOR_BLACK, Roulette.KEY_COLOR_RED);
+        Roulette.KEY_COLOR_BLACK, Roulette.KEY_COLOR_RED);
     view.output(string);
     view.output("***************************");
   }
 
 
   private void showResult(String winSector, boolean resultGame) {
-    String string = String.format("ВЫИГРЫШНЫЙ СЕКТОР: %s (%s)", winSector, Roulette.getColorSector(winSector));
+    String string = String.format("ВЫИГРЫШНЫЙ СЕКТОР: %s (%s)", winSector,
+        Roulette.getColorSector(winSector));
     view.output(string);
 
     if (resultGame) {
@@ -87,5 +87,7 @@ public class Game {
       view.output("Вы проиграли!");
     }
   }
+
+
 
 }
