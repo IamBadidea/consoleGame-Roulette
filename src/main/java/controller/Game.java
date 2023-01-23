@@ -32,10 +32,10 @@ public class Game {
 
     while (true) {
       view.output("Введите ваш ход:");
-      String sector = view.input().toUpperCase();
+      String color = view.input().toUpperCase();
 
-      if (roulette.isCorrectSector(sector)) {
-        return sector;
+      if (roulette.isCorrectColorSector(color)) {
+        return color;
       }
       view.output("Ошибка ввода");
     }

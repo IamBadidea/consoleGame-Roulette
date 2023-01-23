@@ -60,9 +60,9 @@ public class Roulette {
     return sectors[index];
   }
 
-  public boolean isCorrectSector(String sector) {
+  public boolean isCorrectColorSector(String color) {
     for (String colorSector : COLOR_SECTORS) {
-      if (sector.equals(colorSector)) {
+      if (color.equals(colorSector)) {
         return true;
       }
     }
