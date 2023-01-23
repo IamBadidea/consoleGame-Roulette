@@ -1,14 +1,8 @@
-package model;
+package model.roulette;
 
 import java.util.Random;
 
-public class Roulette {
-  public static final String[] SECTORS = {
-          "00", "0", "1", "2", "3", "4", "5", "6",
-          "7", "8", "9", "10", "11", "12", "13", "14",
-          "15", "16", "17", "18", "19", "20", "21", "22", "23",
-          "24", "25", "26", "27", "28", "29", "30", "31", "32",
-          "33", "34", "35", "36"};
+public abstract class Roulette {
 
   public static final String[] COLOR_SECTORS = {"RED", "BLACK"};
 
@@ -35,28 +29,21 @@ public class Roulette {
     this.type = type.toLowerCase();
   }
 
-  public String name() {
-    if (type.equals(EU_TYPE)) {
-      return "EUROPEAN ROULETTE";
-    }
-    return "AMERICAN ROULETTE";
-  }
+  public abstract String name();
 
 
   public String minSector() {
-    return isEuropean() ? getSectors()[1] : getSectors()[0];
+    return getSectors()[0];
   }
 
   public String maxSector() {
     return getSectors()[getSectors().length - 1];
   }
 
-
   public String spin() {
     String[] sectors = getSectors();
     Random random = new Random();
-    int offset = isEuropean() ? 1 : 0;
-    int index = random.nextInt(sectors.length - offset) + offset;
+    int index = random.nextInt(sectors.length);
     return sectors[index];
   }
 
@@ -88,9 +75,7 @@ public class Roulette {
     return false;
   }
 
-  private String[] getSectors() {
-    return SECTORS;
-  }
+  protected abstract String[] getSectors();
 
   public static boolean isCorrectTypeGame(String enter) {
     if (enter.equalsIgnoreCase(EU_TYPE) || enter.equalsIgnoreCase(AM_TYPE)) {

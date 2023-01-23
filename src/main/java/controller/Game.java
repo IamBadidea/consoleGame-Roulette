@@ -1,6 +1,8 @@
 package controller;
 
-import model.Roulette;
+import model.roulette.AmericanRoulette;
+import model.roulette.EuropeanRoulette;
+import model.roulette.Roulette;
 import model.Win;
 import view.View;
 
@@ -16,7 +18,7 @@ public class Game {
   public void start() {
 
     String typeRoulette = inputTypeRoulette();
-    roulette = new Roulette(typeRoulette);
+    roulette = createRoulette(typeRoulette);
 
     showAboutGame();
 
@@ -26,6 +28,16 @@ public class Game {
 
     showResult(winSector, resultGame);
 
+  }
+
+  private Roulette createRoulette(String typeRoulette) {
+    if (typeRoulette.equalsIgnoreCase(Roulette.EU_TYPE)) {
+      return new EuropeanRoulette();
+    }
+    if (typeRoulette.equalsIgnoreCase(Roulette.AM_TYPE)) {
+      return new AmericanRoulette();
+    }
+    throw new IllegalArgumentException("Illegal type roulette: " + typeRoulette);
   }
 
   private String inputSector() {

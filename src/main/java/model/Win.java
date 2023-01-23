@@ -1,5 +1,7 @@
 package model;
 
+import model.roulette.Roulette;
+
 public class Win {
 
   private Win() {
