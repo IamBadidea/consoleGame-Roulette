@@ -1,8 +1,12 @@
 package model.roulette;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class EuropeanRoulette extends Roulette {
 
   private static final String NAME = "EUROPEAN ROULETTE";
+  private static final String RANGE = "Сектора: 0-36";
   private static final String[] SECTORS = {
           "0", "1", "2", "3", "4", "5", "6",
           "7", "8", "9", "10", "11", "12", "13", "14",
@@ -12,6 +16,25 @@ public class EuropeanRoulette extends Roulette {
 
   public String name() {
     return NAME;
+  }
+
+  public String range() {
+    return RANGE;
+  }
+
+  public String[] getAllSectors() {
+    ArrayList<String> sectorList = new ArrayList<>();
+
+    Collections.addAll(sectorList, SECTORS);
+    Collections.addAll(sectorList, COLOR_SECTORS);
+
+    String[] sectors = new String[sectorList.size()];
+    sectors = sectorList.toArray(sectors);
+    return sectors;
+  }
+
+  public boolean isCorrectSector(String sector) {
+    return Roulette.checkSectors(sector, getAllSectors());
   }
 
   protected String[] getSectors() {

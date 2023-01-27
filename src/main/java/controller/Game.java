@@ -18,9 +18,9 @@ public class Game {
 
     showAboutGame();
 
-    String selectedColorSector = inputColorSector();
+    String selectedSector = inputSector();
     String winSector = roulette.spin();
-    boolean resultGame = Win.check(winSector, selectedColorSector);
+    boolean resultGame = Win.check(winSector, selectedSector);
 
     showResult(winSector, resultGame);
 
@@ -28,14 +28,14 @@ public class Game {
 
 
 
-  private String inputColorSector() {
+  private String inputSector() {
 
     while (true) {
-      view.output("Введите ваш ход:");
-      String color = view.input().toUpperCase();
+      view.output("Введите вашу ставку:");
+      String sector = view.input().toUpperCase();
 
-      if (roulette.isCorrectColorSector(color)) {
-        return color;
+      if (roulette.isCorrectSector(sector)) {
+        return sector;
       }
       view.output("Ошибка ввода");
     }
@@ -44,7 +44,8 @@ public class Game {
   private void showAboutGame() {
     view.output("***************************");
     view.output(roulette.name());
-    String string = String.format("Ставки на цвет:\n%s \n%s",
+    view.output(roulette.range());
+    String string = String.format("Цвет:\n%s \n%s",
         Roulette.KEY_COLOR_BLACK, Roulette.KEY_COLOR_RED);
     view.output(string);
     view.output("***************************");
