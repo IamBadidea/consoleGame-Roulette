@@ -3,14 +3,43 @@ package controller;
 import model.roulette.Roulette;
 import view.View;
 import view.ViewConsole;
+import view.ViewConsoleColor;
 
 public class Main {
 
   public static void main(String[] args) {
-    View view = new ViewConsole();
+    View view = inputStyleView();
+
     String typeRoulette = inputTypeRoulette(view);
     Roulette roulette = RouletteFactory.create(typeRoulette);
     new Game(view, roulette).start();
+  }
+  private static View inputStyleView() {
+    View view = new ViewConsole();
+
+    while (true) {
+      view.output("Выберите цвет игры:");
+      view.output("MONO");
+      view.output("COLOR");
+      String color = view.input();
+
+      if (!isCorrectColor(color)) {
+        view.output("Ошибка ввода!");
+        continue;
+      }
+
+      if (color.equalsIgnoreCase("COLOR")) {
+        return new ViewConsoleColor();
+      }
+      return view;
+    }
+  }
+
+  private static boolean isCorrectColor(String color) {
+    if (color.equalsIgnoreCase("MONO") || color.equalsIgnoreCase("COLOR")) {
+      return true;
+    }
+    return false;
   }
 
 
@@ -29,4 +58,5 @@ public class Main {
       }
     }
   }
+
 }
