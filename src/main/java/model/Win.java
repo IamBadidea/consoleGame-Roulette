@@ -8,6 +8,7 @@ public class Win {
   }
 
   public static boolean check(String winSector, String selectedSector) {
-    return winSector.equals(selectedSector);
+    return Roulette.getColorSector(winSector).equals(selectedSector) || winSector.equals(
+        selectedSector);
   }
 }

@@ -36,15 +36,15 @@ public abstract class Roulette {
   public abstract String[] getAllSectors();
 
   public String minSector() {
-    return getSectors()[0];
+    return getAllSectors()[0];
   }
 
   public String maxSector() {
-    return getSectors()[getSectors().length - 1];
+    return getAllSectors()[getAllSectors().length - 1];
   }
 
   public String spin() {
-    String[] sectors = getSectors();
+    String[] sectors = getAllSectors();
     Random random = new Random();
     int index = random.nextInt(sectors.length);
     return sectors[index];
@@ -82,6 +82,6 @@ public abstract class Roulette {
     return false;
   }
 
-  protected abstract String[] getSectors();
+//  protected abstract String[] getSectors();
 
 }
