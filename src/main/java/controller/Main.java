@@ -1,62 +1,60 @@
 package controller;
 
+import controller.factory.RouletteFactory;
+import controller.factory.ViewFactory;
 import model.roulette.Roulette;
 import view.View;
 import view.ViewConsole;
-import view.ViewConsoleColor;
 
 public class Main {
 
   public static void main(String[] args) {
-    View view = inputStyleView();
+    View view = new ViewConsole();
+
+    String keyView = inputKeyView(view);
+    view = ViewFactory.create(keyView);
 
     String typeRoulette = inputTypeRoulette(view);
     Roulette roulette = RouletteFactory.create(typeRoulette);
-    new Game(view, roulette).start();
-  }
-  private static View inputStyleView() {
-    View view = new ViewConsole();
 
-    while (true) {
-      view.output("Выберите цвет игры:");
-      view.output("MONO");
-      view.output("COLOR");
-      String color = view.input();
-
-      if (!isCorrectColor(color)) {
-        view.output("Ошибка ввода!");
-        continue;
-      }
-
-      if (color.equalsIgnoreCase("COLOR")) {
-        return new ViewConsoleColor();
-      }
-      return view;
-    }
+    Game game = new Game(view, roulette);
+    game.start();
   }
 
-  private static boolean isCorrectColor(String color) {
-    if (color.equalsIgnoreCase("MONO") || color.equalsIgnoreCase("COLOR")) {
-      return true;
-    }
-    return false;
+  private static String inputKeyView(View view) {
+
+    String title = String.format("Выберите цвет консоли:\n%s\n%s", ViewFactory.KEY_VIEW_MONO, ViewFactory.KEY_VIEW_COLOR);
+
+    Dialog dialog = new Dialog(
+        view,
+        title,
+        "Некорректный ввод!",
+        ViewFactory.KEY_VIEW_MONO,
+        ViewFactory.KEY_VIEW_COLOR);
+
+    return dialog.input();
   }
 
 
   private static String inputTypeRoulette(View view) {
-    while (true) {
-      view.output("Выберите тип рулетки:");
-      view.output(RouletteFactory.AM_TYPE + " - Американская");
-      view.output(RouletteFactory.EU_TYPE + " - Европейская");
-      view.output(RouletteFactory.VEGAS_TYPE + " - Лас-Вегас");
-      String type = view.input();
 
-      if (RouletteFactory.isCorrect(type)) {
-        return type;
-      } else {
-        view.output("Некорректный ввод!\n");
-      }
-    }
+    String title = String.format(
+        "Выберите тип рулетки:\n%s\n%s\n%s",
+        RouletteFactory.KEY_EU_TYPE,
+        RouletteFactory.KEY_AM_TYPE,
+        RouletteFactory.KEY_VEGAS_TYPE
+        );
+
+    Dialog dialog = new Dialog(
+        view,
+        title,
+        "Некорректный ввод!",
+        RouletteFactory.KEY_EU_TYPE,
+        RouletteFactory.KEY_AM_TYPE,
+        RouletteFactory.KEY_VEGAS_TYPE);
+
+    return dialog.input();
+
   }
 
 }
