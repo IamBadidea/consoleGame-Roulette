@@ -8,15 +8,27 @@ import view.ViewConsole;
 
 public class Main {
 
-  public static void main(String[] args) {
+  public static void main(String ... args) {
+
+    Game game = args.length == 2 ? gameFromArguments(args) : gameFromInput();
+
+    game.start();
+  }
+
+  private static Game gameFromArguments(String ... args) {
+    View view = ViewFactory.create(args[0]);
+    Roulette roulette = RouletteFactory.create(args[1]);
+    return new Game(view, roulette);
+  }
+
+  private static Game gameFromInput() {
     View view = new ViewConsole();
 
     view = inputView(view);
 
     Roulette roulette = inputRoulette(view);
 
-    Game game = new Game(view, roulette);
-    game.start();
+    return new Game(view, roulette);
   }
 
   private static View inputView(View view) {
