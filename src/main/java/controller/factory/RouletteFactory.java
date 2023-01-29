@@ -10,6 +10,9 @@ public class RouletteFactory {
   public static final String KEY_AM_TYPE = "am";
   public static final String KEY_VEGAS_TYPE = "vegas";
 
+  private RouletteFactory() {
+  }
+
   public static Roulette create(String typeRoulette) {
     if (typeRoulette.equalsIgnoreCase(KEY_EU_TYPE)) {
       return new EuropeanRoulette();

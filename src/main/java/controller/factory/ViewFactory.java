@@ -9,6 +9,9 @@ public class ViewFactory {
   public static final String KEY_VIEW_MONO = "mono";
   public static final String KEY_VIEW_COLOR = "color";
 
+  private ViewFactory() {
+  }
+
   public static View create(String key) {
     if (key.equalsIgnoreCase(KEY_VIEW_COLOR)) {
       return new ViewConsoleColor();

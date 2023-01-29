@@ -11,17 +11,15 @@ public class Main {
   public static void main(String[] args) {
     View view = new ViewConsole();
 
-    String keyView = inputKeyView(view);
-    view = ViewFactory.create(keyView);
+    view = inputView(view);
 
-    String typeRoulette = inputTypeRoulette(view);
-    Roulette roulette = RouletteFactory.create(typeRoulette);
+    Roulette roulette = inputRoulette(view);
 
     Game game = new Game(view, roulette);
     game.start();
   }
 
-  private static String inputKeyView(View view) {
+  private static View inputView(View view) {
 
     String title = String.format("Выберите цвет консоли:\n%s\n%s", ViewFactory.KEY_VIEW_MONO, ViewFactory.KEY_VIEW_COLOR);
 
@@ -32,14 +30,16 @@ public class Main {
         ViewFactory.KEY_VIEW_MONO,
         ViewFactory.KEY_VIEW_COLOR);
 
-    return dialog.input();
+    String key = dialog.input();
+
+    return ViewFactory.create(key);
   }
 
 
-  private static String inputTypeRoulette(View view) {
+  private static Roulette inputRoulette(View view) {
 
     String title = String.format(
-        "Выберите тип рулетки:\n%s\n%s\n%s",
+        "Выберите тип рулетки:\n%s - Европейская\n%s - Американская\n%s - Лас-Вегас",
         RouletteFactory.KEY_EU_TYPE,
         RouletteFactory.KEY_AM_TYPE,
         RouletteFactory.KEY_VEGAS_TYPE
@@ -53,8 +53,9 @@ public class Main {
         RouletteFactory.KEY_AM_TYPE,
         RouletteFactory.KEY_VEGAS_TYPE);
 
-    return dialog.input();
+    String key = dialog.input();
 
+    return RouletteFactory.create(key);
   }
 
 }
