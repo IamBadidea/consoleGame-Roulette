@@ -1,5 +1,6 @@
 package controller;
 
+import model.bet.Bet;
 import model.roulette.Roulette;
 import model.Win;
 import view.View;
@@ -18,7 +19,7 @@ public class Game {
 
     showAboutGame();
 
-    String selectedBet = inputBet();
+    Bet selectedBet = inputBet();
     String winSector = roulette.spin();
     boolean resultGame = Win.check(roulette, winSector, selectedBet);
 
@@ -28,13 +29,14 @@ public class Game {
 
 
 
-  private String inputBet() {
+  private Bet inputBet() {
 
     while (true) {
       view.output("Введите вашу ставку:");
-      String bet = view.input().toUpperCase();
+      String key = view.input().toUpperCase();
+      Bet bet = new Bet(roulette, key);
 
-      if (roulette.isCorrectSector(bet) || roulette.isCorrectColorSector(bet)) {
+      if (!bet.isError()) {
         return bet;
       }
       view.output("Ошибка ввода");
