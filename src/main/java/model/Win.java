@@ -7,8 +7,8 @@ public class Win {
   private Win() {
   }
 
-  public static boolean check(String winSector, String selectedSector) {
-    return Roulette.getColorSector(winSector).equals(selectedSector) || winSector.equals(
-        selectedSector);
+  public static boolean check(Roulette roulette, String winSector, String selectedBet) {
+    return roulette.getColorSector(winSector).equals(selectedBet) || winSector.equals(
+        selectedBet);
   }
 }
