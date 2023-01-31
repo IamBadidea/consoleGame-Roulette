@@ -13,17 +13,17 @@ public class RouletteFactory {
   private RouletteFactory() {
   }
 
-  public static Roulette create(String typeRoulette) {
-    if (typeRoulette.equalsIgnoreCase(KEY_EU_TYPE)) {
+  public static Roulette create(String key) {
+    if (key.equalsIgnoreCase(KEY_EU_TYPE)) {
       return new EuropeanRoulette();
     }
-    if (typeRoulette.equalsIgnoreCase(KEY_AM_TYPE)) {
+    if (key.equalsIgnoreCase(KEY_AM_TYPE)) {
       return new AmericanRoulette();
     }
-    if (typeRoulette.equalsIgnoreCase(KEY_VEGAS_TYPE)) {
+    if (key.equalsIgnoreCase(KEY_VEGAS_TYPE)) {
       return new VegasRoulette();
     }
-    throw new IllegalArgumentException("Illegal type roulette: " + typeRoulette);
+    throw new IllegalArgumentException("Illegal type roulette: " + key);
   }
 
   public static boolean isCorrect(String key) {

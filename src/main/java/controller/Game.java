@@ -1,6 +1,9 @@
 package controller;
 
+import controller.factory.BetFactory;
 import model.bet.Bet;
+import model.bet.BetColor;
+import model.bet.BetSector;
 import model.roulette.Roulette;
 import model.Win;
 import view.View;
@@ -30,16 +33,16 @@ public class Game {
 
 
   private Bet inputBet() {
-
     while (true) {
       view.output("Введите вашу ставку:");
       String key = view.input().toUpperCase();
-      Bet bet = new Bet(roulette, key);
-
-      if (!bet.isError()) {
+      if (BetFactory.isCorrect(roulette, key)) {
+        Bet bet = BetFactory.create(roulette, key);
         return bet;
       }
+
       view.output("Ошибка ввода");
+
     }
   }
 
