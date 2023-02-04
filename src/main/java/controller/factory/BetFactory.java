@@ -2,6 +2,7 @@ package controller.factory;
 
 import model.bet.Bet;
 import model.bet.BetColor;
+import model.bet.BetParity;
 import model.bet.BetSector;
 import model.roulette.Roulette;
 
@@ -17,6 +18,10 @@ public class BetFactory {
     if (roulette.isCorrectColorSector(key)) {
       return new BetColor(key);
     }
+    if (roulette.isCorrectParitySector(key)) {
+      return new BetParity(key);
+    }
+
     throw new IllegalArgumentException("Illegal key bet: " + key);
   }
 

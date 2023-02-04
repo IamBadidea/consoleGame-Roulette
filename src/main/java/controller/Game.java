@@ -51,9 +51,12 @@ public class Game {
     view.output(roulette.name());
     String range = String.format("Сектора: %s-%s", roulette.minSector(), roulette.maxSector());
     view.output(range);
-    String string = String.format("Цвет:\n%s \n%s",
+    String color = String.format("Цвет:\n%s \n%s",
         Roulette.KEY_COLOR_BLACK, Roulette.KEY_COLOR_RED);
-    view.output(string);
+    view.output(color);
+    String parity = String.format("Четность: \n%s \n%s",
+            Roulette.KEY_PARITY_EVEN, Roulette.KEY_PARITY_ODD);
+    view.output(parity);
     view.output("***************************");
   }
 

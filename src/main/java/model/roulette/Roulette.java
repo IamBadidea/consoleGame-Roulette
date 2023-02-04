@@ -5,6 +5,7 @@ import java.util.Random;
 public abstract class Roulette {
 
   public static final String[] COLOR_SECTORS = {"RED", "BLACK"};
+  public static final String[] PARITY_SECTORS = {"EVEN", "ODD"};
 
   public static final String[] BLACK_SECTORS = {
       "2", "4", "6", "8", "10", "11", "13", "15",
@@ -13,10 +14,18 @@ public abstract class Roulette {
   public static final String[] RED_SECTORS = {
       "1", "3", "5", "7", "9", "12", "14", "16", "18",
       "19", "21", "23", "25", "27", "30", "32", "34", "36"};
+  public static final String[] EVEN_SECTORS = {
+      "1", "3", "5", "7", "9", "12", "14", "16", "18",
+      "19", "21", "23", "25", "27", "30", "32", "34", "36"};
+  public static final String[] ODD_SECTORS = {
+      "1", "3", "5", "7", "9", "12", "14", "16", "18",
+      "19", "21", "23", "25", "27", "30", "32", "34", "36"};
 
   public static final String KEY_COLOR_RED = "RED";
   public static final String KEY_COLOR_BLACK = "BLACK";
   public static final String KEY_COLOR_NULL = "NULL";
+  public static final String KEY_PARITY_EVEN = "EVEN";
+  public static final String KEY_PARITY_ODD = "ODD";
 
   public abstract String name();
 
@@ -64,6 +73,10 @@ public abstract class Roulette {
   public boolean isCorrectColorSector(String color) {
     return containInArray(COLOR_SECTORS, color);
   }
+  public boolean isCorrectParitySector(String parity) {
+    return containInArray(PARITY_SECTORS, parity);
+  }
+
 
   protected abstract String[] getSectors();
 

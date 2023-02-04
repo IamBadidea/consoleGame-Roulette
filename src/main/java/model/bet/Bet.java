@@ -1,7 +1,5 @@
 package model.bet;
 
-import model.roulette.Roulette;
-
 public abstract class Bet {
 
   private final String value;
