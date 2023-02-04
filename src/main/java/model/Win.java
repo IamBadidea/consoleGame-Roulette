@@ -12,8 +12,6 @@ public class Win {
   }
 
   public static boolean check(Roulette roulette, String winSector, Bet selectedBet) {
-
-
     if (selectedBet instanceof BetColor) {
       String winSectorColor = roulette.getColorSector(winSector);
       return selectedBet.getValue().equals(winSectorColor);
@@ -22,10 +20,11 @@ public class Win {
       return selectedBet.getValue().equals(winSector);
     }
     if (selectedBet instanceof BetParity) {
-      String selectedParity = BetParity.getParitySector(selectedBet.getValue());
-      String winSectorParity = BetParity.getParitySector(winSector);
+      String selectedParity = roulette.getParitySector(selectedBet.getValue());
+      String winSectorParity = roulette.getParitySector(winSector);
       return winSectorParity.equals(selectedParity);
     }
     throw new IllegalArgumentException("Illegal bet value: " + selectedBet.getValue());
   }
+
 }

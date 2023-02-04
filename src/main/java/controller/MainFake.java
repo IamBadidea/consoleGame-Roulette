@@ -17,7 +17,7 @@ public class MainFake {
 
       @Override
       public String spin() {
-        return "13";
+        return "0";
       }
     };
     new Game(view, roulette).start();

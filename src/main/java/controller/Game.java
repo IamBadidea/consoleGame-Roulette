@@ -62,14 +62,34 @@ public class Game {
 
 
   private void showResult(String winSector, boolean resultGame) {
-    String string = String.format("ВЫИГРЫШНЫЙ СЕКТОР: %s (%s)", winSector,
-        roulette.getColorSector(winSector));
+    String color = "(" + roulette.getColorSector(winSector) + ")";
+    if (checkSectorOnZero(winSector)) {
+      color = "";
+    }
+    String string = String.format("ВЫИГРЫШНЫЙ СЕКТОР: %s %s", winSector, color);
+
     view.output(string);
 
     if (resultGame) {
       view.output("Вы выиграли!");
     } else {
       view.output("Вы проиграли!");
+    }
+  }
+
+  private static boolean checkSectorOnZero(String sector) {
+    if (!isNumber(sector)) {
+      return false;
+    }
+    return Integer.parseInt(sector) == 0;
+  }
+
+  private static boolean isNumber(String value) {
+    try {
+      Integer.parseInt(value);
+      return true;
+    } catch (NumberFormatException e) {
+      return false;
     }
   }
 

@@ -1,5 +1,7 @@
 package model.roulette;
 
+import model.bet.BetParity;
+
 import java.util.Random;
 
 public abstract class Roulette {
@@ -14,18 +16,13 @@ public abstract class Roulette {
   public static final String[] RED_SECTORS = {
       "1", "3", "5", "7", "9", "12", "14", "16", "18",
       "19", "21", "23", "25", "27", "30", "32", "34", "36"};
-  public static final String[] EVEN_SECTORS = {
-      "1", "3", "5", "7", "9", "12", "14", "16", "18",
-      "19", "21", "23", "25", "27", "30", "32", "34", "36"};
-  public static final String[] ODD_SECTORS = {
-      "1", "3", "5", "7", "9", "12", "14", "16", "18",
-      "19", "21", "23", "25", "27", "30", "32", "34", "36"};
 
   public static final String KEY_COLOR_RED = "RED";
   public static final String KEY_COLOR_BLACK = "BLACK";
   public static final String KEY_COLOR_NULL = "NULL";
   public static final String KEY_PARITY_EVEN = "EVEN";
   public static final String KEY_PARITY_ODD = "ODD";
+  public static final String KEY_PARITY_NULL = "NULL";
 
   public abstract String name();
 
@@ -75,6 +72,17 @@ public abstract class Roulette {
   }
   public boolean isCorrectParitySector(String parity) {
     return containInArray(PARITY_SECTORS, parity);
+  }
+
+  public String getParitySector(String sector) {
+    if (KEY_PARITY_EVEN.equalsIgnoreCase(sector)) {
+      return KEY_PARITY_EVEN;
+    }
+    if (KEY_PARITY_ODD.equalsIgnoreCase(sector)) {
+      return KEY_PARITY_ODD;
+    }
+
+    return KEY_PARITY_NULL;
   }
 
 
