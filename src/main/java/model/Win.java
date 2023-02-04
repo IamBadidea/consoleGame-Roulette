@@ -20,9 +20,8 @@ public class Win {
       return selectedBet.getValue().equals(winSector);
     }
     if (selectedBet instanceof BetParity) {
-      String selectedParity = roulette.getParitySector(selectedBet.getValue());
       String winSectorParity = roulette.getParitySector(winSector);
-      return winSectorParity.equals(selectedParity);
+      return selectedBet.getValue().equals(winSectorParity);
     }
     throw new IllegalArgumentException("Illegal bet value: " + selectedBet.getValue());
   }

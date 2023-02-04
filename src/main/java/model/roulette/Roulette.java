@@ -6,9 +6,6 @@ import java.util.Random;
 
 public abstract class Roulette {
 
-  public static final String[] COLOR_SECTORS = {"RED", "BLACK"};
-  public static final String[] PARITY_SECTORS = {"EVEN", "ODD"};
-
   public static final String[] BLACK_SECTORS = {
       "2", "4", "6", "8", "10", "11", "13", "15",
       "17", "20", "22", "24", "26", "28", "29",
@@ -23,6 +20,9 @@ public abstract class Roulette {
   public static final String KEY_PARITY_EVEN = "EVEN";
   public static final String KEY_PARITY_ODD = "ODD";
   public static final String KEY_PARITY_NULL = "NULL";
+  public static final String[] COLOR_SECTORS = {KEY_COLOR_RED, KEY_COLOR_BLACK};
+  public static final String[] PARITY_SECTORS = {KEY_PARITY_EVEN, KEY_PARITY_ODD};
+
 
   public abstract String name();
 
@@ -75,14 +75,11 @@ public abstract class Roulette {
   }
 
   public String getParitySector(String sector) {
-    if (KEY_PARITY_EVEN.equalsIgnoreCase(sector)) {
-      return KEY_PARITY_EVEN;
+    int number = Integer.parseInt(sector);
+    if (number == 0) {
+      return KEY_PARITY_NULL;
     }
-    if (KEY_PARITY_ODD.equalsIgnoreCase(sector)) {
-      return KEY_PARITY_ODD;
-    }
-
-    return KEY_PARITY_NULL;
+    return number % 2 == 0 ? KEY_PARITY_EVEN : KEY_PARITY_ODD;
   }
 
 
